@@ -1,4 +1,4 @@
-const infoController = require('./infoController');
 module.exports = {
-    infoController:infoController
+    infoController:require('./infoController'),
+    airplaneController:require('./airplaneController')
 }
