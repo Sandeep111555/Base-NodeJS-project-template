@@ -1,17 +1,13 @@
 const express = require('express');
-const {ServerConfig,Logger} = require('./config');
+const {ServerConfig} = require('./config');
 const apiRoutes = require('./routes');
 const logger = require('./config/logger-config');
 app = express();
-app.use(express.json());
+app.use(express.json()); //to make express understand that the incoming payload is a json object
 app.use(express.urlencoded({extended:true}));
 //use routes instead of direct app.get
-try{
-    app.use('/api',apiRoutes);
-} catch(error){
-    logger.error("error",error);
-}
-app.listen(ServerConfig.PORT,()=>{
+console.log("inside index.js");
+app.use('/api',apiRoutes);
+app.listen(ServerConfig.PORT,async()=>{
     console.log(`Successfully listening on PORT: ${ServerConfig.PORT}`);
-    Logger.info(`Successfully listening on PORT: ${ServerConfig.PORT}`);
 })
