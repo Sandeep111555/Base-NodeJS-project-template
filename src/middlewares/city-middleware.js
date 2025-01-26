@@ -1,5 +1,5 @@
 const { StatusCodes } = require("http-status-codes");
-const { SuccessResponse, ErrorResponse } = require("../utils/common");
+const { ErrorResponse } = require("../utils/common");
 const AppError = require("../utils/errors/app-error");
 
 //this is a middleware callback function

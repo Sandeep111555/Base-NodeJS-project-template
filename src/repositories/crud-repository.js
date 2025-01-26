@@ -31,7 +31,7 @@ class CrudRepository{
         async findAll(){
                 const response = await this.model.findAll();
                 return response;
-            }
+        }
         
     //find by pk function takes data as id
     async findByPk(id){

@@ -49,6 +49,10 @@ async function findAirplaneById(req,res){
             req.params.id
         );
         SuccessResponse.data=airplane
+        if(airplane===null){
+            ErrorResponse.message ="Could not find the airplane";
+            return res.status(StatusCodes.BAD_REQUEST).json(ErrorResponse)
+        }
         return res.status(StatusCodes.CREATED).json(SuccessResponse)
     }
     catch(error){
@@ -68,7 +72,11 @@ async function deleteAirplaneById(req,res){
             req.params.id
         );
         SuccessResponse.data=airplane
-        return res.status(StatusCodes.CREATED).json(SuccessResponse)
+        if(airplane===0){
+            ErrorResponse.message ="Could not find the airplane";
+            return res.status(StatusCodes.BAD_REQUEST).json(ErrorResponse)
+        }
+        return res.status(StatusCodes.OK).json(SuccessResponse)
     }
     catch(error){
         ErrorResponse.error=error
@@ -85,7 +93,7 @@ async function updateAirplane(req,res){
     try{
         console.log("inside updateAirplane");
         const airplane = await airplaneService.updateAirplane(req.params.id,req.body);
-        if(airplane[0]===0){
+        if(airplane===0){
             ErrorResponse.message ="Could not find the airplane";
             return res.status(StatusCodes.BAD_REQUEST).json(ErrorResponse)
         }

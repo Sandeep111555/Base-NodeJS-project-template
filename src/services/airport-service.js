@@ -1,16 +1,16 @@
 const { StatusCodes } = require("http-status-codes");
-const {CityRepository} = require("../repositories");
+const {AirportRepository} = require("../repositories");
 const AppError = require("../utils/errors/app-error");
-const cityRepository = new CityRepository();
+const airportRepository = new AirportRepository();
 
 //POST data:{name: ""}
-async function createCity(data){
+async function createAirport(data){
     try{
-        console.log("Inside createCity service",data);
-        const city = await cityRepository.create(data);
+        console.log("Inside createAirport service",data);
+        const city = await airportRepository.create(data);
         return city;
     } catch(error){
-        console.log("Inside catch of createCity service");
+        console.log("Inside catch of airport service",error);
         if(error.name === "SequelizeValidationError"){
             let explanation=[];
             error.errors.forEach(error => {
@@ -18,18 +18,18 @@ async function createCity(data){
             });
             throw new AppError(explanation,StatusCodes.BAD_REQUEST);
         } else {
-            throw new AppError("Error in creating city",StatusCodes.BAD_REQUEST);
+            throw new AppError("Error in creating Airport",StatusCodes.BAD_REQUEST);
         }
     }
 }
 //GET data{}
-async function findAllCities(){
+async function findAllAirports(){
     try{
-        console.log("Inside getAllCities service");
-        const city = await cityRepository.findAll();
+        console.log("Inside findAllAirports service");
+        const city = await airportRepository.findAll();
         return city;
     } catch(error){
-        console.log("Inside catch of getAllCities service",error);
+        console.log("Inside catch of findAllAirports service",error);
         if(error.name === "SequelizeValidationError"){
             let explanation=[];
             error.errors.forEach(error => {
@@ -37,18 +37,18 @@ async function findAllCities(){
             });
             throw new AppError(explanation,StatusCodes.BAD_REQUEST);
         } else {
-            throw new AppError("Error in getting cities",StatusCodes.BAD_REQUEST);
+            throw new AppError("Error in finding airports",StatusCodes.BAD_REQUEST);
         }
     }
 }
 //DELETE data{id:number}
-async function deleteCity(id){
+async function deleteAirport(id){
     try{
-        console.log("Inside deleteCity service",id);
-        const city = await cityRepository.destroy(id);
+        console.log("Inside deleteAirport service",id);
+        const city = await airportRepository.destroy(id);
         return city;
     } catch(error){
-        console.log("Inside catch of deleteCity service",error);
+        console.log("Inside catch of deleteAirport service",error);
         if(error.name === "SequelizeValidationError"){
             let explanation=[];
             error.errors.forEach(error => {
@@ -56,18 +56,18 @@ async function deleteCity(id){
             });
             throw new AppError(explanation,StatusCodes.BAD_REQUEST);
         } else {
-            throw new AppError("Error in deleting city",StatusCodes.BAD_REQUEST);
+            throw new AppError("Error in deleting airport",StatusCodes.BAD_REQUEST);
         }
     }
 }
 //POST data{id:number}
-async function findCityById(id){
+async function findAirportById(id){
     try{
-        console.log("Inside findCityById service",id);
-        const city = await cityRepository.findByPk(id);
-        return city;
+        console.log("Inside findAirportById service",id);
+        const airport = await airportRepository.findByPk(id);
+        return airport;
     } catch(error){
-        console.log("Inside catch of findCityById service",error);
+        console.log("Inside catch of findAirportById service",error);
         if(error.name === "SequelizeValidationError"){
             let explanation=[];
             error.errors.forEach(error => {
@@ -75,8 +75,12 @@ async function findCityById(id){
             });
             throw new AppError(explanation,StatusCodes.BAD_REQUEST);
         } else {
-            throw new AppError("Error in getting city",StatusCodes.BAD_REQUEST);
+            throw new AppError("Error in getting airport",StatusCodes.BAD_REQUEST);
         }
     }
 }
-module.exports = {createCity,findAllCities,deleteCity,findCityById};
+module.exports = {
+    createAirport,
+    findAllAirports,
+    deleteAirport,
+    findAirportById};
